@@ -32,7 +32,10 @@ def thin_out_reflections(y, start_idx, end_idx, rate):
     """
     ray_indices = [idx for idx in range(start_idx, end_idx + 1) if y[idx] != 0]
     num_rays = int(len(ray_indices) * rate)
-    assert num_rays >= 1
-    random_subset = np.random.choice(ray_indices, num_rays, replace=False)
-    y[random_subset] = 0
-    return y
+    if num_rays < 1:
+        return y
+
+    else:
+        random_subset = np.random.choice(ray_indices, num_rays, replace=False)
+        y[random_subset] = 0
+        return y

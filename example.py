@@ -1,13 +1,18 @@
+import tkinter
+import matplotlib
+matplotlib.use('TkAgg')
 from storir import ImpulseResponse
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 if __name__ == '__main__':
     # example configuration
-    rt60 = 500
+    rt60 = 1000
     edt = 50
     itdg = 3
     er_duration = 80
-    drr = int(rt60 * (- 1 / 100)) + np.random.randint(0, np.ceil(rt60 * (1 / 100)))
+    drr = -5
     sr = 16000
 
     rir = ImpulseResponse(rt60=rt60,
@@ -19,4 +24,6 @@ if __name__ == '__main__':
     # get 5 impulse responses
     for _ in range(5):
         output = rir.generate(sampling_rate=sr)
+        plt.plot(output)
+        plt.show()
         print(output.shape)
